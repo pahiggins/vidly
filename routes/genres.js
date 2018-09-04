@@ -2,11 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 const fetchGenres = require('../controllers/fetchGenres');
+const fetchGenre = require('../controllers/fetchGenre');
 const createGenre = require('../controllers/createGenre');
 const editGenre = require('../controllers/editGenre');
 const deleteGenre = require('../controllers/deleteGenre');
 
 router.get('/', fetchGenres);
+
+router.get('/:id', fetchGenre);
 
 router.post('/', createGenre);
 

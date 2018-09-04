@@ -1,16 +1,14 @@
-const genres = [
-    {
-        id: 1,
-        name: 'Thriller'
-    },
-    {
-        id: 2,
-        name: 'Comedy'
-    },
-    {
-        id: 3,
-        name: 'Action'
-    }
-];
+const mongoose = require('mongoose');
 
-module.exports = genres;
+const genreSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        minlength: 5,
+        maxlength: 50
+    }
+});
+
+const Genre = mongoose.model('Genre', genreSchema);
+
+module.exports = Genre;
