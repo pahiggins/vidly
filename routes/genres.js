@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const fetchGenres = require('../controllers/fetchGenres');
-const fetchGenre = require('../controllers/fetchGenre');
-const createGenre = require('../controllers/createGenre');
-const editGenre = require('../controllers/editGenre');
-const deleteGenre = require('../controllers/deleteGenre');
+const fetchGenres = require('../controllers/genres/fetchGenres');
+const fetchGenre = require('../controllers/genres/fetchGenre');
+const createGenre = require('../controllers/genres/createGenre');
+const editGenre = require('../controllers/genres/editGenre');
+const deleteGenre = require('../controllers/genres/deleteGenre');
 
 router.get('/', fetchGenres);
 

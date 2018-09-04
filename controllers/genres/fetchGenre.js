@@ -1,4 +1,4 @@
-const Genre = require('../data/genres');
+const Genre = require('../../data/genres');
 
 async function fetchGenre(req, res) {
     const genre = await Genre.findById(req.params.id);
@@ -6,7 +6,7 @@ async function fetchGenre(req, res) {
     if (!genre) {
         return res.status(404).send('Genre not found');
     }
-    
+
     res.send(genre);
 }
 

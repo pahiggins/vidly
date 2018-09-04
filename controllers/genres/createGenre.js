@@ -1,4 +1,4 @@
-const Genre = require('../data/genres');
+const Genre = require('../../data/genres');
 const validateGenre = require('./validateGenre');
 
 async function createGenre(req, res) {
