@@ -1,7 +1,12 @@
+const mongoose = require('mongoose');
+const Fawn = require('fawn');
+
 const { Rental } = require('../../data/rentals');
 const Customer = require('../../data/customers');
 const Movie = require('../../data/movies');
 const validateRental = require('./validateRental');
+
+Fawn.init(mongoose);
 
 async function createRental(req, res) {
     const { error } = validateRental(req.body);
@@ -23,6 +28,7 @@ async function createRental(req, res) {
         return res.status(400).send('Movie not in stock');
     }
 
+    // TODO: Does this need to be let instead of const?
     let rental = new Rental({
         customer: {
             _id: customer._id,
@@ -35,10 +41,18 @@ async function createRental(req, res) {
             dailyRentalRate: movie.dailyRentalRate
         }
     });
-    rental = await rental.save();
 
-    movie.numberInStock--;
-    movie.save();
+    try {
+        new Fawn.Task()
+            .save('rentals', rental)
+            .update('movies', { _id: movie._id }, {
+                $inc: { numberInStock: -1 }
+            })
+            .run();
+    }
+    catch(ex) {
+        res.status(500).send('Something failed');
+    }
 
     res.send(rental);
 }
