@@ -14,7 +14,6 @@ async function editCustomer(req, res) {
         phone: req.body.phone
     }, { new: true });
 
-
     if (!customer) {
         return res.status(404).send('Customer not found');
     }

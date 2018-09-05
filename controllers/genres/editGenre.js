@@ -10,7 +10,6 @@ async function editGenre(req, res) {
 
     const genre = await Genre.findByIdAndUpdate(req.params.id, { name: req.body.name }, { new: true });
 
-
     if (!genre) {
         return res.status(404).send('Genre not found');
     }
