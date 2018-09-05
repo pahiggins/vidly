@@ -1,4 +1,4 @@
-const Genre = require('../../data/genres');
+const { Genre } = require('../../data/genres');
 
 async function deleteGenre(req, res) {
     const genre = await Genre.findByIdAndRemove(req.params.id);

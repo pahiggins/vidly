@@ -1,4 +1,4 @@
-const Genre = require('../../data/genres');
+const { Genre } = require('../../data/genres');
 
 async function fetchGenres(req, res) {
     const genres = await Genre.find().sort('name');

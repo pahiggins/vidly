@@ -1,5 +1,5 @@
 const Movie = require('../../data/movies');
-const Genre = require('../../data/genres');
+const { Genre } = require('../../data/genres');
 const validateMovie = require('./validateMovie');
 
 async function createMovie(req, res) {
