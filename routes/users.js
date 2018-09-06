@@ -6,12 +6,13 @@ const fetchUser = require('../controllers/users/fetchUser');
 const createUser = require('../controllers/users/createUser');
 // const editUser = require('../controllers/users/editUser');
 // const deleteUser = require('../controllers/users/deleteUser');
+const auth = require('../middleware/auth');
 
-router.get('/', fetchUsers);
+router.get('/', auth, fetchUsers);
 
-router.get('/:id', fetchUser);
+router.get('/me', auth, fetchUser);
 
-router.post('/', createUser);
+router.post('/', auth, createUser);
 
 // router.put('/:id', editUser);
 

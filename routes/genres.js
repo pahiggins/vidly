@@ -7,14 +7,17 @@ const createGenre = require('../controllers/genres/createGenre');
 const editGenre = require('../controllers/genres/editGenre');
 const deleteGenre = require('../controllers/genres/deleteGenre');
 
+const auth = require('../middleware/auth');
+const admin = require('../middleware/admin');
+
 router.get('/', fetchGenres);
 
 router.get('/:id', fetchGenre);
 
-router.post('/', createGenre);
+router.post('/', auth, createGenre);
 
-router.put('/:id', editGenre);
+router.put('/:id', auth, editGenre);
 
-router.delete('/:id', deleteGenre);
+router.delete('/:id', [auth, admin], deleteGenre);
 
 module.exports = router;
