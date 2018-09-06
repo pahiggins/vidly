@@ -6,18 +6,19 @@ const fetchGenre = require('../controllers/genres/fetchGenre');
 const createGenre = require('../controllers/genres/createGenre');
 const editGenre = require('../controllers/genres/editGenre');
 const deleteGenre = require('../controllers/genres/deleteGenre');
+const asyncMiddleware = require('../middleware/async');
 
 const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
 
-router.get('/', fetchGenres);
+router.get('/', asyncMiddleware(fetchGenres));
 
-router.get('/:id', fetchGenre);
+router.get('/:id', asyncMiddleware(fetchGenre));
 
-router.post('/', auth, createGenre);
+router.post('/', auth, asyncMiddleware(createGenre));
 
-router.put('/:id', auth, editGenre);
+router.put('/:id', auth, asyncMiddleware(editGenre));
 
-router.delete('/:id', [auth, admin], deleteGenre);
+router.delete('/:id', [auth, admin], asyncMiddleware(deleteGenre));
 
 module.exports = router;
