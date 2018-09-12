@@ -53,7 +53,7 @@ describe('/api/genres', () => {
         let token;
         let name;
 
-        const exec = async function() {
+        const exec = async () => {
             return await request(server)
                 .post('/api/genres')
                 .set('x-auth-token', token)
