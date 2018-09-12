@@ -9,10 +9,11 @@ const deleteGenre = require('../controllers/genres/deleteGenre');
 
 const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
+const validateObjectId = require('../middleware/validateObjectId');
 
 router.get('/', fetchGenres);
 
-router.get('/:id', fetchGenre);
+router.get('/:id', validateObjectId, fetchGenre);
 
 router.post('/', auth, createGenre);
 
