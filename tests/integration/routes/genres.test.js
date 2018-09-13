@@ -11,12 +11,12 @@ describe('/api/genres', () => {
     });
 
     afterEach(async () => {
-        server.close();
+        // await server.close();
         await Genre.remove({});
     });
 
     describe('GET /', () => {
-        it('should return all genres', async () => {
+        test('should return all genres', async () => {
             await Genre.collection.insertMany([
                 { name: 'genre1' },
                 { name: 'genre2' }
@@ -32,7 +32,7 @@ describe('/api/genres', () => {
     });
 
     describe('GET /:id', () => {
-        it('should return a genre if valid id is passed', async () => {
+        test('should return a genre if valid id is passed', async () => {
             const genre = new Genre({ name: 'Comedy' });
             await genre.save();
 
@@ -42,7 +42,7 @@ describe('/api/genres', () => {
             expect(res.body).toHaveProperty('name', genre.name);
         });
 
-        it('should return a 404 if invalid id is passed', async () => {
+        test('should return a 404 if invalid id is passed', async () => {
             const res = await request(server).get('/api/genres/1');
 
             expect(res.status).toBe(404);
@@ -65,7 +65,7 @@ describe('/api/genres', () => {
             name = 'genre1';
         });
 
-        it('should return a 401 if client is not logged in', async () => {
+        test('should return a 401 if client is not logged in', async () => {
             token = '';
 
             const res = await exec();
@@ -73,7 +73,7 @@ describe('/api/genres', () => {
             expect(res.status).toBe(401);
         });
 
-        it('should return a 400 if genre is less than 5 characters', async () => {
+        test('should return a 400 if genre is less than 5 characters', async () => {
             name = 'abcd';
 
             const res = await exec();
@@ -81,7 +81,7 @@ describe('/api/genres', () => {
             expect(res.status).toBe(400);
         });
 
-        it('should return a 400 if genre is more than 50 characters', async () => {
+        test('should return a 400 if genre is more than 50 characters', async () => {
             name = new Array(52).join('a');
 
             const res = await exec();
@@ -89,7 +89,7 @@ describe('/api/genres', () => {
             expect(res.status).toBe(400);
         });
 
-        it('should save the genre if it is valid', async () => {
+        test('should save the genre if it is valid', async () => {
             const res = await exec();
             const genre = await Genre.find({ name: 'genre1' });
 
@@ -97,7 +97,7 @@ describe('/api/genres', () => {
             expect(genre).not.toBeNull();
         });
 
-        it('should return the genre if it is valid', async () => {
+        test('should return the genre if it is valid', async () => {
             const res = await exec();
 
             expect(res.status).toBe(200);
